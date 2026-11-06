@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Faceless Video Studio</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#090d18;color:#f5f7ff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+header{
+  padding:20px;background:#111a2d;
+  border-bottom:1px solid #26344f;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{font-size:19px;font-weight:bold;color:#60a5fa}
+.status{font-size:11px;color:#4ade80}
+.container{max-width:1100px;margin:auto;padding:22px}
+.hero{margin-bottom:25px}
+.hero h1{font-size:27px;margin-bottom:9px}
+.hero p{color:#9ba9c0;font-size:14px;line-height:1.6}
+.cards{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:12px;margin:22px 0;
+}
+.card,.panel{
+ background:#111a2d;border:1px solid #26344f;
+ border-radius:12px;padding:17px;
+}
+.card strong{display:block;font-size:22px;color:#60a5fa}
+.card span{font-size:12px;color:#9ba9c0}
+.panel{margin-bottom:18px}
+.panel h2{font-size:18px;margin-bottom:17px}
+label{display:block;font-size:13px;margin:14px 0 8px;color:#cbd5e1}
+input,select,textarea{
+ width:100%;padding:13px;background:#080e1c;
+ border:1px solid #33415d;border-radius:8px;
+ color:white;font-size:14px;outline:none;
+}
+textarea{min-height:180px;resize:vertical;line-height:1.6}
+button{
+ border:0;border-radius:8px;padding:12px 16px;
+ font-weight:bold;cursor:pointer;font-size:13px;
+}
+.primary{background:#2563eb;color:white}
+.secondary{background:#263751;color:white}
+.danger{background:#71333d;color:white}
+button:active{opacity:.7}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.result{margin-top:15px}
+.small{font-size:12px;color:#9ba9c0;line-height:1.6}
+footer{text-align:center;padding:25px;color:#718096;font-size:12px}
+@media(max-width:600px){
+ .cards{grid-template-columns:1fr 1fr}
+ .container{padding:15px}
+ .hero h1{font-size:23px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+ <div class="logo">⚡ AI VIDEO STUDIO</div>
+ <div class="status">● STUDIO READY</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+ <h1>Create Videos Without Showing Your Face</h1>
+ <p>Your personal workspace for creating video scripts, voiceovers and faceless video content.</p>
+</section>
+
+<section class="cards">
+ <div class="card">
+  <strong>01</strong>
+  <span>Script Studio</span>
+ </div>
+ <div class="card">
+  <strong>02</strong>
+  <span>Voice Studio</span>
+ </div>
+ <div class="card">
+  <strong>03</strong>
+  <span>Video Studio</span>
+ </div>
+</section>
+
+<section class="panel">
+ <h2>🎬 Create Your Video</h2>
+
+ <label>Video Topic</label>
+ <input id="topic" placeholder="Example: 5 secrets banks don't want you to know">
+
+ <label>Video Type</label>
+ <select id="type">
+  <option value="YouTube Long Video">YouTube Long Video</option>
+  <option value="YouTube Shorts">YouTube Shorts</option>
+  <option value="Instagram Reel">Instagram Reel</option>
+  <option value="TikTok Video">TikTok Video</option>
+  <option value="Facebook Reel">Facebook Reel</option>
+ </select>
+
+ <label>Video Duration</label>
+ <select id="duration">
+  <option value="30 seconds">30 Seconds</option>
+  <option value="60 seconds">1 Minute</option>
+  <option value="3 minutes">3 Minutes</option>
+  <option value="5 minutes">5 Minutes</option>
+  <option value="10 minutes">10 Minutes</option>
+ </select>
+
+ <label>Content Style</label>
+ <select id="style">
+  <option>Educational</option>
+  <option>Mysterious</option>
+  <option>Documentary</option>
+  <option>Motivational</option>
+  <option>Storytelling</option>
+  <option>Professional</option>
+ </select>
+
+ <button class="primary" style="width:100%;margin-top:18px"
+ onclick="generateScript()">✨ Generate Video Script</button>
+ <p class="small" style="margin-top:10px">
+ Starter generator: creates a sample script locally. Real AI generation will be connected in a later step.
+ </p>
+</section>
+
+<section class="panel">
+ <h2>📝 Script Editor</h2>
+ <label>Your Video Script</label>
+ <textarea id="script" placeholder="Your generated script will appear here. You can also write or paste your own script..."></textarea>
+
+ <div class="actions">
+  <button class="primary" onclick="downloadScript()">⬇ Download Script</button>
+  <button class="secondary" onclick="copyScript()">📋 Copy Script</button>
+ </div>
+</section>
+
+<section class="panel">
+ <h2>🎙️ Voiceover Studio</h2>
+ <label>Choose Voice</label>
+ <select id="voice">
+  <option value="default">Default Voice</option>
+ </select>
+
+ <div class="actions">
+  <button class="primary" onclick="playVoice()">▶ Play Voiceover</button>
+  <button class="danger" onclick="stopVoice()">■ Stop</button>
+ </div>
+ <p class="small" style="margin-top:12px">
+ Uses voices available on your device or browser. This is not yet an AI voice service.
+ </p>
+</section>
+
+<section class="panel">
+ <h2>🎥 Automatic Video Studio</h2>
+ <p class="small">
+ Your video rendering workspace will be connected in the next development stage.
+ </p>
+ <div style="margin-top:15px;padding:16px;background:#080e1c;border-radius:8px">
+  <p>🎞️ Visual selection — Coming next</p>
+  <p style="margin-top:10px">🎵 Background music — Coming next</p>
+  <p style="margin-top:10px">💬 Automatic subtitles — Coming next</p>
+  <p style="margin-top:10px">🎬 MP4 video export — Coming next</p>
+ </div>
+</section>
+
+</main>
+
+<footer>
+AI Faceless Video Studio · Your creative workspace
+</footer>
+
+<script>
+function generateScript(){
+ const topic=document.getElementById("topic").value.trim();
+ const type=document.getElementById("type").value;
+ const duration=document.getElementById("duration").value;
+ const style=document.getElementById("style").value;
+
+ if(!topic){
+  alert("Please enter your video topic first.");
+  return;
+ }
+
+ const script =
+ `TITLE: ${topic}
+
+VIDEO TYPE: ${type}
+DURATION: ${duration}
+STYLE: ${style}
+
+[HOOK]
+What if everything you thought you knew about ${topic} was only half the story? Today, we're uncovering something you need to understand.
+
+[INTRODUCTION]
+Welcome back! In this video, we're exploring ${topic}. Stay until the end because the final point could completely change your perspective.
+
+[MAIN CONTENT]
+Let's break this down.
+
+First, understand the basics. Knowing how ${topic} works is the first step toward making better decisions.
+
+Second, look beyond what you see on the surface. Research the details, question assumptions and pay attention to information that others often overlook.
+
+Third, take what you've learned and put it into practice. Knowledge becomes valuable when you use it wisely.
+
+[CONCLUSION]
+Now you understand some important things about ${topic}. Remember, always do your own research and make informed decisions.
+
+[CALL TO ACTION]
+If you found this useful, subscribe and turn on notifications. I'll see you in the next video!`;
+
+ document.getElementById("script").value=script;
+}
+
+function downloadScript(){
+ const content=document.getElementById("script").value;
+ if(!content.trim()){
+  alert("Generate or write a script first.");
+  return;
+ }
+ const blob=new Blob([content],{type:"text/plain"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="faceless-video-script.txt";
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+function copyScript(){
+ const content=document.getElementById("script").value;
+ if(!content.trim()){
+  alert("There is no script to copy.");
+  return;
+ }
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(content)
+   .then(()=>alert("Script copied!"))
+   .catch(()=>alert("Copy unavailable. Please select the script manually."));
+ }else{
+  alert("Clipboard is unavailable in this browser.");
+ }
+}
+
+function playVoice(){
+ const content=document.getElementById("script").value;
+ if(!content.trim()){
+  alert("Generate or write a script first.");
+  return;
+ }
+ if(!("speechSynthesis" in window)){
+  alert("Voice playback is not supported by this browser.");
+  return;
+ }
+ speechSynthesis.cancel();
+ const speech=new SpeechSynthesisUtterance(content);
+ speech.rate=1;
+ speech.pitch=1;
+ const voices=speechSynthesis.getVoices();
+ const selected=document.getElementById("voice").value;
+ if(selected!=="default"){
+  const voice=voices.find(v=>v.name===selected);
+  if(voice) speech.voice=voice;
+ }
+ speechSynthesis.speak(speech);
+}
+
+function stopVoice(){
+ if("speechSynthesis" in window){
+  speechSynthesis.cancel();
+ }
+}
+
+function loadVoices(){
+ if(!("speechSynthesis" in window))return;
+ const select=document.getElementById("voice");
+ const voices=speechSynthesis.getVoices();
+ select.innerHTML='<option value="default">Default Voice</option>';
+ voices.forEach(voice=>{
+  const option=document.createElement("option");
+  option.value=voice.name;
+  option.textContent=voice.name+" ("+voice.lang+")";
+  select.appendChild(option);
+ });
+}
+
+if("speechSynthesis" in window){
+ loadVoices();
+ speechSynthesis.onvoiceschanged=loadVoices;
+}
+</script>
+
+</body>
+</html>
